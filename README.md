@@ -2,7 +2,7 @@
 
 ** The diagram.json must include the chip as a part and the gitgub dependencies **
 
-> { "type": "chip-moduleLN298", "id": "chip1", "top": XX, "left": YY, "attrs": {} }
+> { "type": "chip-motor", "id": "chip1", "top": XX, "left": YY, "attrs": {} }
 
 > "dependencies": { "chip-motor": "github:DarwinWasWrong/wokwi-motor-chip@X.X.X" }
 
