@@ -1,6 +1,9 @@
 v:
 cd V:\wokwi-projects\wokwi-motor-chip
 wokwi-cli chip compile src\chip-motor.chip.c
-copy V:\wokwi-projects\wokwi-motor-chip\src\chip-motor.chip.wasm V:\wokwi-projects\wokwi-motor-chip\dist\chip.wasm 
-copy V:\wokwi-projects\wokwi-motor-chip\src\chip-motor.chip.json V:\wokwi-projects\wokwi-motor-chip\dist\chip.json
- tar.exe -a -c -f V:\wokwi-projects\wokwi-motor-chip\dist\chip.zip V:\wokwi-projects\wokwi-motor-chip\src\chip-motor.chip.json V:\wokwi-projects\wokwi-motor-chip\src\chip-motor.chip.wasm 
+cd dist
+copy ..\src\chip-motor.chip.wasm chip.wasm 
+copy ..\src\chip-motor.chip.json chip.json
+
+tar.exe -acf chip.zip chip.json chip.wasm
+cd ..
