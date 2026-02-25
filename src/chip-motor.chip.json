@@ -1,0 +1,16 @@
+{
+  "name": "motor",
+  "author": "Darwin WasWrong",
+  "pins": [
+    "M1",
+    "M2"    
+  ],
+  "controls": [
+
+  ],
+    "display": {
+    "width":256,
+    "height": 128
+  }
+
+}
