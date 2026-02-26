@@ -87,15 +87,6 @@ static const int32_t black[]  = {
   0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000
 };
 
-
-const char motor_state_text[][17]=
-{
-  "Backward       ",
-  "Forward        ", 
-  "Stop           "
-};
-
-
 // basic RGBA color
 typedef struct {
   uint8_t r;
@@ -105,16 +96,17 @@ typedef struct {
 } rgba_t;
 
 typedef struct {
-
   //Module Pins
   pin_t pin_M1;
   pin_t pin_M2;
-  uint32_t voltage_attr;
+
+
+  
   float M1_in;
   float M2_in;
   float prev_M1_in;
   float prev_M2_in;
-  float inVoltage;
+ 
   // motor graphics position
   int8_t motorphase;
   uint8_t motor_y;
@@ -150,8 +142,8 @@ typedef struct {
 
 } chip_state_t;
 
-float m1_prev=9999;
-float m2_prev=9999;
+float m1_prev=9999; // RUBISH VALUES TO FORCE INITIAL CHANGE DETECT.
+float m2_prev=9999; // RUBISH VALUES TO FORCE INITIAL CHANGE DETECT.
 
 static void draw_state (chip_state_t *chip);
 static void draw_line(chip_state_t *chip, uint32_t row, rgba_t color);
@@ -218,9 +210,9 @@ void chip_timer_event_motor(void *user_data) {
   chip->M1_in=pin_adc_read(chip->pin_M1);
   chip->M2_in=pin_adc_read(chip->pin_M2);
 
-  if ( chip->prev_M1_in!= chip->M1_in ||  chip->prev_M1_in != chip->M1_in )
+  if ( chip->prev_M1_in!= chip->M1_in ||  chip->prev_M2_in != chip->M2_in )
   {
-   printf("NEW     -- M1=%f, M2=%f\n", chip->M1_in, chip->M2_in);
+  // printf("NEW     -- M1=%f, M2=%f\n", chip->M1_in, chip->M2_in);
    draw_state(chip);
    chip->prev_M1_in = chip->M1_in;
    chip->prev_M2_in = chip->M2_in;
@@ -245,11 +237,11 @@ void draw_state(chip_state_t *chip) {
   {
    chip-> motor_state = 1; 
          // remove left - place right
-    draw_right_arrow(chip,chip->motor_arrow_y ,chip->motor_right_arrow_x,1);
-    draw_left_arrow(chip,chip->motor_arrow_y ,chip->motor_left_arrow_x,0);
+   draw_left_arrow(chip,chip->motor_arrow_y ,chip->motor_left_arrow_x,1);
+   draw_right_arrow(chip,chip->motor_arrow_y ,chip->motor_right_arrow_x,0);
   }
 
-if (chip->M1_in == 0 && chip->M2_in == 0 )
+if (chip->M1_in == 0.00 && chip->M2_in == 0.00 )
 {
    // stopped
    chip-> motor_state = 2; 
@@ -264,7 +256,7 @@ if (chip->M1_in == 0 && chip->M2_in == 0 )
   if (chip-> motor_state == 0 || chip-> motor_state == 1)
   {
  chip-> bias= 5.00 - (chip->M1_in  + chip->M2_in);
-  printf("chip->M1_in= %f  chip->M2_in = %f \n",chip->M1_in,chip->M2_in);
+  //printf("chip->M1_in= %f  chip->M2_in = %f \n",chip->M1_in,chip->M2_in);
   if (chip-> bias > 0 )
   {
     printf("Bias = %f  motor_state = %d \n",chip-> bias,chip->motor_state);

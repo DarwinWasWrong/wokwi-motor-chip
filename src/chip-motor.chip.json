@@ -3,13 +3,12 @@
   "author": "Darwin WasWrong",
   "pins": [
     "M1",
+    "",
     "M2"    
   ],
-  "controls": [
-
-  ],
+  "controls": [  ],
     "display": {
-     "width":60,
+    "width":60,
     "height": 50
   }
 
