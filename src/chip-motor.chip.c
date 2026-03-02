@@ -255,7 +255,7 @@ if (chip->M1_in == 0.00 && chip->M2_in == 0.00 )
   
   if (chip-> motor_state == 0 || chip-> motor_state == 1)
   {
- chip-> bias= 5.00 - (chip->M1_in  + chip->M2_in);
+ chip-> bias=  (chip->M1_in  + chip->M2_in);
   //printf("chip->M1_in= %f  chip->M2_in = %f \n",chip->M1_in,chip->M2_in);
   if (chip-> bias > 0 )
   {
